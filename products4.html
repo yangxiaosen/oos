@@ -77,69 +77,19 @@
 	<!--//banner-->
 	<!--gallery-->
     <div class="child-gallery">
-    	<a href="#"><button style="border-width: 10px 10px 0 10px;">客户感知实时监测</button></a>
+    	<a href="products.html"><button>客户感知实时监测</button></a>
     	<a href="products1.html"><button>质差用户分析</button></a>
     	<a href="products2.html"><button>网络质量用户投诉倾向预测</button></a>
         <a href="products3.html"><button>广州校园2G网络客户感知总体情况</button></a>
-        <a href="products4.html"><button>高校终端分布及活跃性分析</button></a>
+        <a href="#"><button style="border-width: 10px 10px 0 10px;">高校终端分布及活跃性分析</button></a>
     </div>
 	<div class="gallery">
 		<div class="container">
-			<h3>客户感知实时监测一览图</h3>
-			<input id="upload" type="file" name="">
-			<button onclick="condata()"></button>
-			<div id="allmap"></div>
+			<h3>高校终端分布及活跃性分析</h3>
+					
 		</div>
 	</div>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nXAzpeRklXcGadHlQsYaT44wZRshg1h5"></script>
-	<script type="text/javascript">
-	// 百度地图API功能
-	  var map = new BMap.Map("allmap");  // 创建Map实例
-	  map.centerAndZoom("广州",11);
-	  map.enableScrollWheelZoom();    // 初始化地图,用城市名设置地图中心点
-	  //读取数据
-	  function condata(){
-	  	  var datacsv=document.getElementById("upload").files[0];
-		  var fr = new FileReader();
-		  fr.readAsText(datacsv);
-		  fr.onload=function(evt){
-		  	console.log(evt.target.result);
-		  	var data1=evt.target.result.split("\n");
-		  	console.log(data1);
-		  	//经度
-		  	var data2=[];
-		  	//纬度
-		  	var data3=[];
-		  	//信息
-		  	var data4=[];
-		  	for(var i=0;i<data1.length;i++){
-		  		data2.push(data1[i].split(",")[8]);
-		  		data3.push(data1[i].split(",")[9]);
-		  		data4.push(data1[i].split(",")[3]);
-		  	}
-		  	for(var j=0;j<data1.length;j++){
-		  		//
-		  		
-				(function(j){
-					var point = new BMap.Point(Number(data2[j]),Number(data3[j]));
-					var marker = new BMap.Marker(point);  // 创建标注
-					map.addOverlay(marker);              // 将标注添加到地图中
-					var opts = {
-					  width : 200,     // 信息窗口宽度
-					  height: 100,     // 信息窗口高度
-					  title : "基站地址" , // 信息窗口标题
-					  enableMessage:true,//设置允许信息窗发送短息
-					}
-					var infoWindow = new BMap.InfoWindow(data4[j], opts);  // 创建信息窗口对象 
-					marker.addEventListener("click", function(){          
-					map.openInfoWindow(infoWindow,point); //开启信息窗口
-				});
-				})(j)
-		  	}
-		  }
-	  }
-	  
-    </script>
+	
 	<!--//gallery-->
 	<!--footer-->
 	<div class="footer">
