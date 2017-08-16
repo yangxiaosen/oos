@@ -2134,3 +2134,20 @@ h3.typo-title {
   border-radius: 5px;
   box-shadow:0 2px 4px 0 rgba(0,0,0,0.28);
 }
+/*质差分析样式*/
+.sense-down{
+  width: 700px;
+  margin:0 auto;
+}
+.sense-down #echart1,#echart2,#echart3{
+  width: 500px;
+  height: 400px;
+  border:1px solid #5677fc;
+  border-radius: 5px;
+  box-shadow:0 4px 8px 0 rgba(0,0,0,0.28);
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+.sense-down .choose-month{
+  margin-top: 10px;
+}

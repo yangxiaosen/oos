@@ -15,6 +15,8 @@
 <!-- js -->
 <script src="js/jquery-1.11.1.min.js"></script> 
 <script src="js/modernizr.custom.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/guangzhou.js"></script>
 <!-- //js -->
 </head>
 <body class="cbp-spmenu-push">
@@ -85,9 +87,195 @@
     </div>
 	<div class="gallery">
 		<div class="container">
-			<h3>质差用户分析</h3>			
+			<h3>质差用户分析</h3>
+			<div class="sense-down">
+				<h4>(一)感知下降原因分布</h4>
+				<div class="choose-month">月份：
+					<select>
+						<option selected="selected">201701</option>
+						<option>201702</option>
+						<option>201703</option>
+						<option>201704</option>
+						<option>201705</option>
+						<option>201706</option>
+					</select>
+				</div>
+				<div id="echart1"></div>
+			</div>
+			<div class="sense-down">
+				<h4>(二)不同区域对比</h4>
+				<div id="echart2"></div>
+			</div>
+			<div class="sense-down">
+				<h4>(三)不同终端对比</h4>
+				<div class="choose-month">
+				    月份：
+					<select>
+						<option selected="selected">201701</option>
+						<option>201702</option>
+						<option>201703</option>
+						<option>201704</option>
+						<option>201705</option>
+						<option>201706</option>
+					</select>
+					区域：
+					<select>
+						<option selected="selected">天河</option>
+						<option>白云</option>
+						<option>黄埔</option>
+						<option>荔湾</option>
+						<option>番禺</option>
+						<option>越秀</option>
+						<option>从化</option>
+					</select>
+				</div>
+				<div id="echart3"></div>
+			</div>	
 		</div>
 	</div>
+	<script type="text/javascript">
+	//第一张表
+		// 基于准备好的dom，初始化echarts实例1
+        var myChart1 = echarts.init(document.getElementById('echart1'));
+        var option1 = {
+			    tooltip : {
+			        trigger: 'axis',
+			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			        }
+			    },
+			    legend: {
+			        data: ['网络', '终端','活动轨迹（切换次数）']
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis:  {
+			        type: 'value'
+			    },
+			    yAxis: {
+			        type: 'category',
+			        data: ['天河','白云','黄埔','荔湾','番禺','越秀','从化']
+			    },
+			    series: [
+			        {
+			            name: '网络',
+			            type: 'bar',
+			            stack: '总量',
+			            label: {
+			                normal: {
+			                    show: true,
+			                    position: 'insideRight',
+			                    formatter: function(data){
+			                    	return data.data;
+			                    }
+			                }
+			            },
+			            data: [320, 302, 301, 334, 390, 330, 320]
+			        },
+			        {
+			            name: '终端',
+			            type: 'bar',
+			            stack: '总量',
+			            label: {
+			                normal: {
+			                    show: true,
+			                    position: 'insideRight'
+			                }
+			            },
+			            data: [120, 132, 101, 134, 90, 230, 210]
+			        },
+			        {
+			            name: '活动轨迹（切换次数）',
+			            type: 'bar',
+			            stack: '总量',
+			            label: {
+			                normal: {
+			                    show: true,
+			                    position: 'insideRight'
+			                }
+			            },
+			            data: [220, 182, 191, 234, 290, 330, 310]
+			        }
+			    ]
+			};
+			myChart1.setOption(option1);
+	//第二张表
+	var myChart2 = echarts.init(document.getElementById('echart2'));
+	myChart2.setOption({
+		tooltip : {
+	        trigger: 'item',
+	        formatter : function (params) {
+	            return '质差信息:'+'<br/>'+'质差用户数:12\n质差用户占比20%\n故障基站数:'+params.value;
+	        }
+	    },
+        series: [{
+        	name: '广州地图',
+            type: 'map',
+            map: 'guangzhou',
+            roam: true,
+            label: {
+            	normal: {show:true}
+            },
+            data:[
+                {name : '从化区', value : 12},
+                {name : '增城区', value : 13},
+                {name : '花都区', value : 14},
+                {name : '白云区', value : 4},
+                {name : '天河区', value : 9},
+                {name : '越秀区', value : 15},
+                {name : '荔湾区', value : 45},
+                {name : '海珠区', value : 12},
+                {name : '番禺区', value : 45},
+                {name : '南沙区', value : 10},
+                {name : '黄埔区', value : 8}
+            ]
+        }]
+    });
+    //第三张表
+    var myChart3 = echarts.init(document.getElementById('echart3'));
+    myChart3.setOption({
+	    title : {
+	        text: '质差用户不同终端占比',
+	        subtext: '纯属虚构',
+	        x:'center'
+	    },
+	    tooltip : {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	    },
+	    legend: {
+	        orient: 'vertical',
+	        left: 'left',
+	        data: ['华为','三星','TCL','小米','诺基亚']
+	    },
+	    series : [
+	        {
+	            name: '访问来源',
+	            type: 'pie',
+	            radius : '55%',
+	            center: ['50%', '60%'],
+	            data:[
+	                {value:335, name:'华为'},
+	                {value:310, name:'三星'},
+	                {value:234, name:'TCL'},
+	                {value:135, name:'小米'},
+	                {value:1548, name:'诺基亚'}
+	            ],
+	            itemStyle: {
+	                emphasis: {
+	                    shadowBlur: 10,
+	                    shadowOffsetX: 0,
+	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+	                }
+	            }
+	        }
+	    ]
+	});
+	</script>
 	<!--//gallery-->
 	<!--footer-->
 	<div class="footer">
