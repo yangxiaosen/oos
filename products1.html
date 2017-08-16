@@ -142,6 +142,13 @@
 			        trigger: 'axis',
 			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
 			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			        },
+			        formatter: function(params){
+			        	var count=params[0].value+params[1].value+params[2].value;
+			        	/*for(var i=0;i<params.length;i++){
+			        		count+=params[i].value;
+			        	}*/
+			        	return params[0].seriesName+':'+Math.ceil(params[0].value*100/count)+'%</br>'+params[1].seriesName+':'+Math.ceil(params[1].value*100/count)+'%</br>'+params[2].seriesName+':'+Math.ceil(params[2].value*100/count)+'%</br>';
 			        }
 			    },
 			    legend: {
@@ -211,6 +218,14 @@
 	        formatter : function (params) {
 	            return '质差信息:'+'<br/>'+'质差用户数:12\n质差用户占比20%\n故障基站数:'+params.value;
 	        }
+	    },
+	    visualMap: {
+	        min: 0,
+	        max: 100,
+	        left: 'left',
+	        top: 'bottom',
+	        text: ['高','低'],           // 文本，默认为数值文本
+	        calculable: true
 	    },
         series: [{
         	name: '广州地图',
